@@ -12,21 +12,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const database_1 = __importDefault(require("../utils/database"));
-const bcrypt = require('bcrypt');
-const bcrypt_1 = require("bcrypt");
-const create = (newUser) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(newUser);
-    console.log(newUser.data.password);
-    const saltRounds = 10;
-    const myPlaintextPassword = newUser.data.password;
-    console.log(saltRounds);
-    console.log(myPlaintextPassword);
-    const hashedPassword = yield bcrypt_1.hash(myPlaintextPassword, saltRounds);
-    const savedUser = database_1.default.user.create({
-        data: Object.assign(Object.assign({}, newUser), { password: hashedPassword }),
-    });
-    return savedUser;
+exports.postUser = exports.getUsers = void 0;
+const service_1 = __importDefault(require("./service"));
+const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const getUsers = yield service_1.default.findMany();
+    res.json({ data: getUsers });
 });
-const userClient = Object.assign(Object.assign({}, database_1.default.user), { create });
-exports.default = userClient;
+exports.getUsers = getUsers;
+const postUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const newUser = req.body;
+    console.log(newUser);
+    const postUser = yield service_1.default.create({ data: newUser });
+    res.json({ newUser: postUser });
+});
+exports.postUser = postUser;
