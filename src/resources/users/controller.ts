@@ -12,8 +12,7 @@ export const getUsers = async (req: Request, res: Response) => {
 export const postUser = async (req: Request, res: Response) => {
     const newUser = req.body
 
-    console.log(newUser)
-    const postUser = await userClient.create({ data: newUser })
+    const postUser = await userClient.create(newUser)
 
-    res.json({ newUser: postUser })
+    res.json({ postUser })
 }

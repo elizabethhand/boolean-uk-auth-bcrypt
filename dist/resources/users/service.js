@@ -17,15 +17,16 @@ const bcrypt = require('bcrypt');
 const bcrypt_1 = require("bcrypt");
 const create = (newUser) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(newUser);
-    console.log(newUser.data.password);
+    console.log(newUser.password);
     const saltRounds = 10;
-    const myPlaintextPassword = newUser.data.password;
+    const myPlaintextPassword = newUser.password;
     console.log(saltRounds);
     console.log(myPlaintextPassword);
     const hashedPassword = yield bcrypt_1.hash(myPlaintextPassword, saltRounds);
     const savedUser = database_1.default.user.create({
         data: Object.assign(Object.assign({}, newUser), { password: hashedPassword }),
     });
+    console.log(savedUser);
     return savedUser;
 });
 const userClient = Object.assign(Object.assign({}, database_1.default.user), { create });

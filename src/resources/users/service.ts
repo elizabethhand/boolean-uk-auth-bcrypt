@@ -4,10 +4,10 @@ import { hash } from "bcrypt";
 
 const create = async (newUser) => {
     console.log(newUser)
-    console.log(newUser.data.password)
+    console.log(newUser.password)
 
     const saltRounds = 10;
-    const myPlaintextPassword = newUser.data.password
+    const myPlaintextPassword = newUser.password
 
     console.log(saltRounds)
     console.log(myPlaintextPassword)
@@ -18,6 +18,8 @@ const create = async (newUser) => {
     const savedUser = dbClient.user.create({
         data: { ...newUser, password: hashedPassword },
     });
+
+    console.log(savedUser)
 
     return savedUser
 }

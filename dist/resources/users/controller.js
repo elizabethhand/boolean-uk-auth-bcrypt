@@ -21,8 +21,7 @@ const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.getUsers = getUsers;
 const postUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const newUser = req.body;
-    console.log(newUser);
-    const postUser = yield service_1.default.create({ data: newUser });
-    res.json({ newUser: postUser });
+    const postUser = yield service_1.default.create(newUser);
+    res.json({ postUser });
 });
 exports.postUser = postUser;
