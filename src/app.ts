@@ -1,6 +1,7 @@
 import express from "express";
 import userrouter from "./resources/users/router"
 import authRouter from './resources/auth/router'
+import { loginUser } from "./resources/auth/controller";
 
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -12,6 +13,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(cookieParser());
 
+app.use(loginUser)
 app.use(authRouter)
 app.use("/users", userrouter)
 

@@ -10,12 +10,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.loginUser = void 0;
+const authgenerator_1 = require("../utils/authgenerator");
 const service_1 = require("./service");
 const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userCreds = req.body;
     try {
         // Check if credentials are valid
         const loggedUser = yield service_1.findUserWithValidation(userCreds);
+        const token = authgenerator_1.createToken({
+            id: loggedUser.id,
+            username: loggedUser.username
+        });
+        res.cookie("token", token, { httpOnly: true });
         // handle result
         res.json({ user: { id: loggedUser.id, username: loggedUser.username } });
     }
